@@ -55,7 +55,8 @@
 #include <QDebug>
 #include <QDir>
 #include <QtWidgets>
-
+#define PC_VIDEO QApplication::applicationDirPath() + "/../../device/rockchip/oem/oem_normal/SampleVideo_1280x720_5mb.mp4"
+#define DEVICE_VIDEO "/oem/SampleVideo_1280x720_5mb.mp4"
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
@@ -70,10 +71,19 @@ int main(int argc, char **argv)
     parser.addPositionalArgument("url", "The URL to open.");
     parser.process(app);
     QStringList list;
+    QString pcvideo = PC_VIDEO;
     if (!parser.positionalArguments().isEmpty()) {
         list = parser.positionalArguments();
-    }else {
-        QFile file("/oem/SampleVideo_1280x720_5mb.mp4");
+    }else if(QFile::exists(pcvideo)){
+        QFile file(pcvideo);
+        if(file.exists()){
+            qDebug() << "opening" << file.fileName();
+            list << file.fileName() << file.fileName() << file.fileName()
+                 << file.fileName() << file.fileName() << file.fileName()
+                 << file.fileName() << file.fileName() << file.fileName() ;
+        }
+    }else if(QFile::exists(DEVICE_VIDEO)){
+        QFile file(DEVICE_VIDEO);
         if(file.exists()){
             qDebug() << "opening" << file.fileName();
             list << file.fileName() << file.fileName() << file.fileName()

@@ -84,7 +84,7 @@ MultiVideoPlayer::MultiVideoPlayer(QStringList list)
         playerList->append(player);
         QVideoWidget *video = new QVideoWidget();
         videoList->append(video);
-        QMediaPlaylist *playlist = new QMediaPlaylist();
+        QMediaPlaylist *playlist = new QMediaPlaylist(this);
         multiPlayList->append(playlist);
         QString str = list.at(i);
         QFile f(urlList.at(i));
