@@ -61,10 +61,12 @@ MultiVideoPlayer::MultiVideoPlayer(QStringList list)
     playerList = new QList<QMediaPlayer*>();
     videoList = new QList<QVideoWidget*>();
     hLayoutList = new QList<QHBoxLayout*>();
+    multiPlayList = new QList<QMediaPlaylist*>();
     urlList = list;
 
     exitButton = new QPushButton(tr("Exit"));
     connect(exitButton, &QAbstractButton::clicked, this, &MultiVideoPlayer::exit);
+
     if(urlList.count() > 0){
         num = qSqrt(urlList.count());
         if(qreal(num) < qSqrt(list.count())){
@@ -82,6 +84,20 @@ MultiVideoPlayer::MultiVideoPlayer(QStringList list)
         playerList->append(player);
         QVideoWidget *video = new QVideoWidget();
         videoList->append(video);
+        QMediaPlaylist *playlist = new QMediaPlaylist();
+        multiPlayList->append(playlist);
+        QString str = list.at(i);
+        QFile f(urlList.at(i));
+        QUrl u(str);
+
+        if(f.exists()){
+            playlist->addMedia(QUrl::fromLocalFile(str));
+        }else if(u.isValid()){
+            playlist->addMedia(u);
+        }
+        playlist->setCurrentIndex(1);
+        playlist->setPlaybackMode(QMediaPlaylist::Loop);
+        player->setPlaylist(playlist);
         QHBoxLayout *layout = hLayoutList->value(i/num);
         if(layout){
             layout->addWidget(video);
@@ -122,7 +138,7 @@ void MultiVideoPlayer::play()
         QMediaPlayer *player = playerList->value(i);
         if(video && player){
             QUrl url = QUrl::fromLocalFile(urlList.value(i));
-            player->setMedia(url);
+//            player->setMedia(url);
             player->setVideoOutput(video);
             video->show();
             player->play();

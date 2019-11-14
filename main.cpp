@@ -76,7 +76,9 @@ int main(int argc, char **argv)
         QFile file("/oem/SampleVideo_1280x720_5mb.mp4");
         if(file.exists()){
             qDebug() << "opening" << file.fileName();
-            list << file.fileName();
+            list << file.fileName() << file.fileName() << file.fileName()
+                 << file.fileName() << file.fileName() << file.fileName()
+                 << file.fileName() << file.fileName() << file.fileName() ;
         }
     }
     MultiVideoPlayer player(list);

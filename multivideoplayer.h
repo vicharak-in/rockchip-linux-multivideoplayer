@@ -85,6 +85,7 @@ private:
     QList<QMediaPlayer*> *playerList;
     QList<QVideoWidget*> *videoList;
     QList<QHBoxLayout*> *hLayoutList;
+    QList<QMediaPlaylist*> *multiPlayList;
     QMediaPlayer *player;
     QVideoWidget *video;
     QBoxLayout *mainLayout;
