@@ -114,9 +114,6 @@ MultiVideoPlayer::MultiVideoPlayer(QStringList list)
         widget->setLayout(hLayoutList->value(i));
         mainLayout->addWidget(widget);
     }
-    player = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
-    video = new QVideoWidget();
-    mainLayout->addWidget(video);
     mainLayout->addWidget(exitButton);
 
     QWidget *widget = new QWidget();
@@ -137,8 +134,6 @@ void MultiVideoPlayer::play()
         QVideoWidget *video = videoList->value(i);
         QMediaPlayer *player = playerList->value(i);
         if(video && player){
-            QUrl url = QUrl::fromLocalFile(urlList.value(i));
-//            player->setMedia(url);
             player->setVideoOutput(video);
             video->show();
             player->play();
@@ -160,7 +155,6 @@ void MultiVideoPlayer::mouseDoubleClickEvent(QMouseEvent *e)
 void MultiVideoPlayer::mouseReleaseEvent(QMouseEvent *e)
 {
     if(e->button() == Qt::LeftButton){
-
     }
 }
 

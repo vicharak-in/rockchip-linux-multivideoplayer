@@ -86,8 +86,6 @@ private:
     QList<QVideoWidget*> *videoList;
     QList<QHBoxLayout*> *hLayoutList;
     QList<QMediaPlaylist*> *multiPlayList;
-    QMediaPlayer *player;
-    QVideoWidget *video;
     QBoxLayout *mainLayout;
     QAbstractButton *exitButton;
 };
